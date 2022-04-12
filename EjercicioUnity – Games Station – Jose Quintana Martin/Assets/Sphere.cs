@@ -3,26 +3,30 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
-public class Cube : MonoBehaviour
+public class Sphere : MonoBehaviour
 {
-    Vector3 force;
+
+    Vector3 movement;
     Rigidbody rb;
 
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
+    }
 
-        rb.AddForce(force);
+    private void FixedUpdate()
+    {
+        movement.y -= 9.8f;
+        transform.Translate(movement * Time.fixedDeltaTime);
     }
 
     public void SetForce(Vector3 newForce)
     {
-        force = newForce;
+        movement = newForce;
     }
 
     private void OnCollisionEnter(Collision collision)
     {
         Destroy(gameObject);
-        Spawner.instance.SpawnSphereWithMovement(transform, (force * -1) / 100);
     }
 }

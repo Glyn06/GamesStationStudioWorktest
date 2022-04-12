@@ -9,6 +9,9 @@ public class Spawner : MonoBehaviour
     [SerializeField] GameObject cubePrefab;
     [SerializeField] GameObject spherePrefab;
 
+    [SerializeField] Vector3 cubeInitialForce;
+    [SerializeField] Vector3 sphereInitialForce;
+
     private void Awake()
     {
         if (instance == null)
@@ -18,11 +21,19 @@ public class Spawner : MonoBehaviour
     }
 
     public void SpawnCube(Transform origin) {
-        Instantiate(cubePrefab, origin.position, Quaternion.identity);
+        GameObject obj = Instantiate(cubePrefab, origin.position, Quaternion.identity);
+        obj.GetComponent<Cube>().SetForce(cubeInitialForce);
     }
 
     public void SpawnSphere(Transform origin)
     {
-        Instantiate(spherePrefab, origin.position, Quaternion.identity);
+        GameObject obj = Instantiate(spherePrefab, origin.position, Quaternion.identity);
+        obj.GetComponent<Sphere>().SetForce(sphereInitialForce);
+    }
+
+    public void SpawnSphereWithMovement(Transform origin, Vector3 newMovement)
+    {
+        GameObject obj = Instantiate(spherePrefab, origin.position, Quaternion.identity);
+        obj.GetComponent<Sphere>().SetForce(newMovement);
     }
 }
