@@ -18,5 +18,6 @@ public class Cube : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         Destroy(gameObject);
+        Spawner.instance.SpawnSphere(transform);
     }
 }

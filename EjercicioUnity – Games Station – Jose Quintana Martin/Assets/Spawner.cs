@@ -4,15 +4,25 @@ using UnityEngine;
 
 public class Spawner : MonoBehaviour
 {
+    public static Spawner instance;
+
     [SerializeField] GameObject cubePrefab;
     [SerializeField] GameObject spherePrefab;
 
-    public void SpawnCube() {
-        Instantiate(cubePrefab, transform.position, Quaternion.identity);
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
     }
 
-    public void SpawnSphere()
+    public void SpawnCube(Transform origin) {
+        Instantiate(cubePrefab, origin.position, Quaternion.identity);
+    }
+
+    public void SpawnSphere(Transform origin)
     {
-        Instantiate(spherePrefab, transform.position, Quaternion.identity);
+        Instantiate(spherePrefab, origin.position, Quaternion.identity);
     }
 }
